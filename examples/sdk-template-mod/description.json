@@ -1,0 +1,9 @@
+{
+  "allow_add_mods": true,
+  "custom_icons": true,
+  "name": "KeybindBridge SDK Example",
+  "description": "Ready-to-copy example with press and hold actions registered in the shared bindings menu.",
+  "type": "Blocks and Parts",
+  "version": 2,
+  "localId": "9a2a8f43-6f74-4fc3-b25c-3e139b710030"
+}

@@ -1,4 +1,3 @@
-# KeybindBridge
 # KeybindBridge 1.0.0
 
 KeybindBridge gives Scrap Mechanic Lua mods a shared API for additional
@@ -46,13 +45,18 @@ Russian documentation: [README_RU.md](README_RU.md).
 
 ## Installation for players
 
-1. Install and run DLL Injector
-  `https://github.com/QuestionableM/SM-DLL-Injector`
-
-2. From the Windows archive, copy `keybind_bridge.dll` and
+1. From the Windows archive, copy `keybind_bridge.dll` and
    `KeybindBridge.diagnostics.ini` to:
 
    `Steam/steamapps/common/Scrap Mechanic/Release/DLLModules`
+
+2. From the Mods archive, copy `KeybindBridge-Core` to your local mods folder:
+
+   `%APPDATA%/Axolot Games/Scrap Mechanic/User/User_<id>/Mods`
+
+3. Optionally copy `KeybindBridge-Flashlight` to the same folder.
+4. Enable the mods when creating or editing the world.
+5. Fully restart Scrap Mechanic after adding or removing an autonomous mod.
 
 `FeatureLevel=8` is the normal release setting. Levels `0-7` are diagnostic
 fallbacks only.
@@ -71,6 +75,29 @@ Assignments are saved immediately to
 appear in this menu. Per-block bindings are intentionally kept separate.
 
 ## Blocks
+
+### Keybind Logic
+
+1. Connect a specific seat to the blue block.
+2. Interact with the block using `E`, then press the desired key.
+3. Press `U` to cycle `HOLD -> TOGGLE -> PULSE`.
+4. Connect the output to logic, lights, controllers, bearings or another
+   compatible consumer.
+
+The block responds only to the player occupying the connected seat. A passenger
+needs a separate Keybind Logic connected to their own seat. Keys pressed outside
+the seat are consumed and are not replayed after sitting down.
+
+### Mode Controller
+
+The orange block changes the mode of connected Keybind Logic blocks. It can be
+triggered by:
+
+- the rising edge of a regular button, gate or sensor;
+- `U` while interacting with it;
+- an assigned key from a connected seat.
+
+One Mode Controller can drive several Keybind Logic blocks.
 
 ## Smallest autonomous mod
 

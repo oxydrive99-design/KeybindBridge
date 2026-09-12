@@ -1,0 +1,32 @@
+KeybindBridge 1.0.0 - Installation
+==================================
+
+1. Install a compatible Scrap Mechanic DLL injector.
+
+2. From KeybindBridge-1.0.0-Windows-x64.zip copy:
+   keybind_bridge.dll
+   KeybindBridge.diagnostics.ini
+
+   to:
+   Steam/steamapps/common/Scrap Mechanic/Release/DLLModules
+
+3. From KeybindBridge-1.0.0-Mods.zip copy KeybindBridge-Core to:
+   %APPDATA%/Axolot Games/Scrap Mechanic/User/User_<id>/Mods
+
+4. Optionally copy KeybindBridge-Flashlight to the same folder.
+
+5. Enable the mods in your world and fully restart Scrap Mechanic.
+
+6. Press End while in a world. Menu controls:
+   Up/Down  - select an action
+   Enter    - rebind the selected action
+   Delete   - restore the default key
+   Esc/End  - close the menu
+
+FeatureLevel=8 is the normal release setting. Do not lower it unless you are
+diagnosing a crash.
+
+DLL log:
+Steam/steamapps/common/Scrap Mechanic/Release/DLLModules/KeybindBridge.log
+
+Every player who uses additional keys needs the DLL installed locally.

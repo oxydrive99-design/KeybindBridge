@@ -1,0 +1,10 @@
+{
+  "9a2a8f43-6f74-4fc3-b25c-3e139b710002": {
+    "title": "Keybind Logic",
+    "description": "Wire the input to one specific seat. It stays out of the seat hotbar and only responds to that occupant. The output supports logic, power, and bearings. Press E to bind any key and U to choose HOLD, TOGGLE, or PULSE. Requires keybind_bridge.dll on every player's client."
+  },
+  "9a2a8f43-6f74-4fc3-b25c-3e139b710003": {
+    "title": "Mode Controller",
+    "description": "A separate mode command block for Keybind Logic. A rising signal from a button, gate, sensor, or timer cycles HOLD → TOGGLE → PULSE. Connect its output to one or more Keybind Logic blocks. Optionally connect a seat and bind a keyboard key with E. U cycles manually."
+  }
+}

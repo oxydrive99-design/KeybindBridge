@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+  <Widget type="Widget" skin="PanelEmpty" position="0 0 1280 720" align="Stretch">
+    <Widget type="Window" skin="WindowCSX" position="330 75 620 570" align="Center" name="KeybindBridgeWindow">
+      <Property key="Caption" value="KeybindBridge"/>
+      <Widget type="TextBox" skin="TextBox" position="24 20 430 36" align="Left Top" name="Title">
+        <Property key="Caption" value="Additional key bindings"/>
+        <Property key="FontHeight" value="26"/>
+      </Widget>
+      <Widget type="TextBox" skin="TextBox" position="460 28 125 24" align="Right Top" name="Counter">
+        <Property key="TextAlign" value="Right"/>
+      </Widget>
+      <Widget type="TextBox" skin="TextBox" position="24 66 562 32" align="HStretch Top" name="Action1"/>
+      <Widget type="TextBox" skin="TextBox" position="24 104 562 32" align="HStretch Top" name="Action2"/>
+      <Widget type="TextBox" skin="TextBox" position="24 142 562 32" align="HStretch Top" name="Action3"/>
+      <Widget type="TextBox" skin="TextBox" position="24 180 562 32" align="HStretch Top" name="Action4"/>
+      <Widget type="TextBox" skin="TextBox" position="24 218 562 32" align="HStretch Top" name="Action5"/>
+      <Widget type="TextBox" skin="TextBox" position="24 256 562 32" align="HStretch Top" name="Action6"/>
+      <Widget type="TextBox" skin="TextBox" position="24 294 562 32" align="HStretch Top" name="Action7"/>
+      <Widget type="TextBox" skin="TextBox" position="24 332 562 32" align="HStretch Top" name="Action8"/>
+      <Widget type="TextBox" skin="TextBox" position="24 370 562 32" align="HStretch Top" name="Action9"/>
+      <Widget type="TextBox" skin="TextBox" position="24 408 562 32" align="HStretch Top" name="Action10"/>
+      <Widget type="TextBox" skin="TextBox" position="24 472 562 54" align="HStretch Bottom" name="Status">
+        <Property key="TextAlign" value="Center"/>
+      </Widget>
+    </Widget>
+  </Widget>
+</MyGUI>

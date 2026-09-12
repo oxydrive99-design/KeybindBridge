@@ -1,0 +1,31 @@
+{
+  "KeybindBridge - Character Flashlight": {
+    "parameterList": {
+      "range": 18.0,
+      "coneAngle": 24.0,
+      "coneFade": 0.18,
+      "intensity": 1.0,
+      "ambient": true,
+      "ambientPosScale": 0.0,
+      "ambientIntensityScale": 0.0,
+      "ambientRangeScale": 0.0,
+      "shadowMode": 2,
+      "color": "fff1c7",
+      "luminance": 1.35
+    },
+    "effectList": [
+      {
+        "type": "spotLight",
+        "name": "",
+        "direction": { "x": 0.0, "y": 0.0, "z": 1.0 },
+        "parameters": [
+          "color",
+          "coneAngle",
+          "coneFade",
+          "luminance"
+        ],
+        "delay": 0.0
+      }
+    ]
+  }
+}
