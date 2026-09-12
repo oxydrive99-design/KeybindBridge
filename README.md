@@ -178,6 +178,7 @@ OK: core KeybindRuntime.lua source loaded from disk
 OK: KeybindBridge 1.0.0 initialized; FeatureLevel=8
 OK: KeybindBridge client runtime started
 ```
+https://github.com/oxydrive99-design/KeybindBridge/releases/latest
 
 If the game crashes, follow [docs/DIAGNOSTICS.md](docs/DIAGNOSTICS.md) and keep a
 separate `KeybindBridge.log` and game `game-*.log` for every test.
