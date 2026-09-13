@@ -1,6 +1,6 @@
 # KeybindBridge 1.0.0
 
-Downlload Latest Update DLL [here](https://github.com/ТВОЙ_НИК/KeybindBridge/releases/latest)
+Downlload Latest Update DLL [here](https://github.com/oxydrive99-design/KeybindBridge/releases/tag/1.0.0)
 
 KeybindBridge gives Scrap Mechanic Lua mods a shared API for additional
 keyboard and mouse bindings. A mod declares an action with a stable ID, a
