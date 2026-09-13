@@ -1,9 +1,10 @@
 {
-  "allow_add_mods": true,
-  "custom_icons": true,
-  "name": "KeybindBridge Core",
-  "description": "Shared keybind runtime, in-game bindings menu, Keybind Logic and Hold/Toggle/Pulse Mode Controller.",
-  "type": "Blocks and Parts",
-  "version": 2,
-  "localId": "9a2a8f43-6f74-4fc3-b25c-3e139b710001"
+	"allow_add_mods" : true,
+	"custom_icons" : true,
+	"description" : "Shared keybind runtime, in-game bindings menu, Keybind Logic and Hold/Toggle/Pulse Mode Controller.\r\n\r\nDownload and install:\r\nhttps://github.com/QuestionableM/SM-DLL-Injector/releases/tag/v1.8\r\n\r\nDownload and put in a folder \"Steam\\steamapps\\common\\Scrap Mechanic\\Release\\DLLModules\" \"keybind_bridge.dll\"  and \"KeybindBridge.diagnostics.ini\"\r\nhttps://github.com/oxydrive99-design/KeybindBridge/releases/tag/1.0.0\r\n\r\nBindings Menu\r\n\r\nPress `End` while in a world:\r\n\r\n- `Up/Down` selects an action;\r\n- `Enter` starts key capture;\r\n- `Delete` restores the default key;\r\n- `Esc` or `End` closes the menu.\r\n\r\nKeybind Logic\r\n\r\n1. Connect a specific seat to the blue block.\r\n2. Interact with the block using `E`, then press the desired key.\r\n3. Press `U` to cycle `HOLD -> TOGGLE -> PULSE`.\r\n4. Connect the output to logic, lights, controllers, bearings or another\r\n   compatible consumer.\r\n\r\nThe block responds only to the player occupying the connected seat. A passenger\r\nneeds a separate Keybind Logic connected to their own seat. Keys pressed outside\r\nthe seat are consumed and are not replayed after sitting down.\r\n\r\nMode Controller\r\n\r\nThe orange block changes the mode of connected Keybind Logic blocks. It can be\r\ntriggered by:\r\n\r\n- the rising edge of a regular button, gate or sensor;\r\n- `U` while interacting with it;\r\n- an assigned key from a connected seat.\r\n\r\nOne Mode Controller can drive several Keybind Logic blocks.",
+	"fileId" : 3800264910,
+	"localId" : "9a2a8f43-6f74-4fc3-b25c-3e139b710001",
+	"name" : "KeybindBridge Core",
+	"type" : "Blocks and Parts",
+	"version" : 2
 }

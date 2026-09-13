@@ -3,11 +3,8 @@ KeybindBridge 1.0.0 — установка
 
 1. Установить совместимый SM DLL Injector.
 
-2. Из архива KeybindBridge-1.0.0-Windows-x64.zip скопировать:
-   keybind_bridge.dll
-   KeybindBridge.diagnostics.ini
-
-   в:
+2. Из архива KeybindBridge-1.0.0-Windows-x64.zip скопировать
+   keybind_bridge.dll в:
    Steam/steamapps/common/Scrap Mechanic/Release/DLLModules
 
 3. Из KeybindBridge-1.0.0-Mods.zip скопировать папку KeybindBridge-Core в:
@@ -23,9 +20,13 @@ KeybindBridge 1.0.0 — установка
    Delete   — вернуть по умолчанию
    Esc/End  — закрыть
 
-FeatureLevel=8 является штатным режимом. Не уменьшать его без диагностики.
+Файл диагностики не обязателен. Без KeybindBridge.diagnostics.ini DLL
+автоматически использует полный FeatureLevel=8. Создавай файл рядом с DLL
+только для диагностики или разработки плагина.
 
 Лог DLL:
 Steam/steamapps/common/Scrap Mechanic/Release/DLLModules/KeybindBridge.log
+
+При каждом запуске игры лог автоматически создаётся заново.
 
 Каждому игроку, использующему дополнительные клавиши, нужна DLL локально.

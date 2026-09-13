@@ -23,11 +23,15 @@ The first stable release of a shared additional-key bridge for Scrap Mechanic.
 
 The archives are intentionally separated:
 
-- `Windows-x64` contains only the DLL and diagnostic configuration;
+- `Windows-x64` contains the DLL and installation instructions; the optional
+  diagnostic configuration is no longer required for normal play;
 - `Mods` contains the core mod and optional flashlight;
 - `SDK` contains documentation, templates and examples.
 
 See `INSTALL.txt` or `README.md`.
+
+Without `KeybindBridge.diagnostics.ini`, the DLL enables the full
+`FeatureLevel=8`. `KeybindBridge.log` is recreated for every game launch.
 
 ## Known limitations
 

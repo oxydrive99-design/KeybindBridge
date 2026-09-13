@@ -1,7 +1,7 @@
 {
   "9a2a8f43-6f74-4fc3-b25c-3e139b710002": {
     "title": "Keybind Logic",
-    "description": "Wire the input to one specific seat. It stays out of the seat hotbar and only responds to that occupant. The output supports logic, power, and bearings. Press E to bind any key and U to choose HOLD, TOGGLE, or PULSE. Requires keybind_bridge.dll on every player's client."
+    "description": "Wire the input to one specific seat, bed, or modded locking interactable. It only responds to the player currently locked to that exact object. The output supports logic, power, and bearings. Press E to bind any key and U to choose HOLD, TOGGLE, or PULSE. Requires keybind_bridge.dll on every player's client."
   },
   "9a2a8f43-6f74-4fc3-b25c-3e139b710003": {
     "title": "Mode Controller",

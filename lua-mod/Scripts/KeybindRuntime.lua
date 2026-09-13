@@ -17,6 +17,7 @@ if not modeOk or serverMode then
 end
 
 local bridge = sm.keybind
+local INPUT_RESUME_GAP_MS = 500
 local diagnosticLevel = 8
 if bridge.diagnosticLevel ~= nil then
     diagnosticLevel = bridge.diagnosticLevel()
@@ -49,7 +50,8 @@ local runtime = {
     extensions = {},
     extensionIds = {},
     lastMenuToggle = bridge.menuToggleSerial(),
-    keySerials = {}
+    keySerials = {},
+    lastInputUpdateMs = nil
 }
 
 local layout = "$CONTENT_9a2a8f43-6f74-4fc3-b25c-3e139b710001/Gui/Layouts/KeybindBridge.layout"
@@ -258,9 +260,27 @@ function runtime.registerExtension(extension)
     return true
 end
 
+function runtime:gameplayInputBlocked()
+    if self.isOpen then
+        return true
+    end
+    if sm.gui == nil or sm.gui.hasActiveGui == nil then
+        return false
+    end
+
+    local ok, active = pcall(sm.gui.hasActiveGui)
+    return ok and active == true
+end
+
 function runtime:updateExtensions()
     local updateNow = bridge.monotonicMilliseconds
         and bridge.monotonicMilliseconds() or nil
+    local resumedAfterGap = updateNow ~= nil
+        and self.lastInputUpdateMs ~= nil
+        and updateNow - self.lastInputUpdateMs > INPUT_RESUME_GAP_MS
+    self.lastInputUpdateMs = updateNow
+    local inputBlocked = self:gameplayInputBlocked() or resumedAfterGap
+
     for _, extension in ipairs(self.extensions) do
         if not extension._created then
             extension._created = true
@@ -275,10 +295,12 @@ function runtime:updateExtensions()
             local serial = bridge.actionPressSerial(action.id)
             if serial ~= action._lastPressSerial then
                 action._lastPressSerial = serial
-                -- Raw Win32 input continues while MyGUI is open. Consume its
-                -- serial here, but never trigger gameplay actions from the
-                -- binding menu or replay them after the menu closes.
-                if not self.isOpen and extension.onActionPressed then
+                -- Raw Win32 input continues while any game GUI is open. Always
+                -- consume the serial, but never dispatch it from inventory,
+                -- containers, the pause menu or our bindings menu. A long Lua
+                -- update gap is treated the same way so an input sampled while
+                -- paused cannot replay on the first frame after returning.
+                if not inputBlocked and extension.onActionPressed then
                     trace("action pressed: " .. action.id)
                     local ok, errorText = pcall(
                         extension.onActionPressed, extension, action.id)

@@ -26,6 +26,18 @@ local function validMode(value)
     return type(value) == "string" and VALID_MODES[value] == true
 end
 
+local function gameplayInputBlocked()
+    if keybind ~= nil and keybind.isGameMenuOpen ~= nil
+        and keybind.isGameMenuOpen() then
+        return true
+    end
+    if sm.gui ~= nil and sm.gui.hasActiveGui ~= nil then
+        local ok, active = pcall(sm.gui.hasActiveGui)
+        return ok and active == true
+    end
+    return false
+end
+
 local function nextMode(mode)
     if mode == "hold" then return "toggle" end
     if mode == "toggle" then return "pulse" end
@@ -231,6 +243,12 @@ function ModeController.client_onFixedUpdate(self)
 
     if not self.cl.wasSeated then
         self.cl.wasSeated = true
+        self.cl.lastPressSerial = serial
+        self.cl.waitingForRelease = keybind.isDown(self.cl.key)
+        return
+    end
+
+    if gameplayInputBlocked() then
         self.cl.lastPressSerial = serial
         self.cl.waitingForRelease = keybind.isDown(self.cl.key)
         return

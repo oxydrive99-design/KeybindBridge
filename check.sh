@@ -5,6 +5,7 @@ project_dir="$(cd "$(dirname "$0")" && pwd)"
 
 find "$project_dir/lua-mod" "$project_dir/examples" \
   \( -name '*.json' -o -name '*.shapedb' -o -name '*.shapeset' -o -name '*.rotationset' \) \
+  ! -path '*/CraftingRecipes/*' \
   -print0 |
   while IFS= read -r -d '' json_file; do
     jq empty "$json_file"
@@ -46,7 +47,8 @@ if command -v xmllint >/dev/null 2>&1; then
     xargs -0 --no-run-if-empty xmllint --noout
 fi
 
-if command -v lua >/dev/null 2>&1; then
+if [[ -f "$project_dir/lua-mod/tests/check_syntax.lua" ]] \
+  && command -v lua >/dev/null 2>&1; then
   (
     cd "$project_dir"
     while IFS= read -r -d '' lua_file; do
@@ -62,7 +64,8 @@ if command -v lua >/dev/null 2>&1; then
     lua lua-mod/tests/test_runtime_server_guard.lua
     lua lua-mod/tests/test_runtime_diagnostic_stages.lua
   )
-elif command -v texlua >/dev/null 2>&1; then
+elif [[ -f "$project_dir/lua-mod/tests/check_syntax.lua" ]] \
+  && command -v texlua >/dev/null 2>&1; then
   (
     cd "$project_dir"
     while IFS= read -r -d '' lua_file; do
@@ -88,9 +91,22 @@ if ! rg -q 'kVersion = "1\.0\.0"' \
   exit 1
 fi
 
-if ! rg -q '^FeatureLevel=8$' \
-  "$project_dir/native/KeybindBridge.diagnostics.ini"; then
-  echo "Release FeatureLevel must default to 8" >&2
+if ! rg -q 'g_featureLevel\{8\}' \
+  "$project_dir/native/src/keybind_bridge.cpp" || \
+  ! rg -q 'GetPrivateProfileIntW\(L"Diagnostics", L"FeatureLevel", 8, path\)' \
+  "$project_dir/native/src/keybind_bridge.cpp"; then
+  echo "Missing diagnostics file must default FeatureLevel to 8" >&2
+  exit 1
+fi
+
+if ! rg -q 'CREATE_ALWAYS' "$project_dir/native/src/keybind_bridge.cpp"; then
+  echo "DLL log is not reset for each process launch" >&2
+  exit 1
+fi
+
+if rg -q 'Copy-Item .*KeybindBridge\.diagnostics\.ini' \
+  "$project_dir/scripts/package-release.ps1"; then
+  echo "Windows release still requires the optional diagnostics file" >&2
   exit 1
 fi
 

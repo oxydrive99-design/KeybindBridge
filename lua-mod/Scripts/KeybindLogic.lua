@@ -7,9 +7,10 @@ KeybindLogic = class(nil)
 -- Controller. Both connections remain outside the vanilla seat hotbar.
 KeybindLogic.maxParentCount = 2
 KeybindLogic.maxChildCount = -1
--- A seat can still be wired to this input, but using power + logic instead of
--- seated keeps the block out of the vanilla seat hotbar.
-KeybindLogic.connectionInput = sm.interactable.connectionType.power + sm.interactable.connectionType.logic
+-- Do not add connectionType.seated here. Scrap Mechanic treats children using
+-- that connection as vanilla seat actions and maps them to hotbar keys 1-9.
+KeybindLogic.connectionInput = sm.interactable.connectionType.power
+    + sm.interactable.connectionType.logic
 KeybindLogic.connectionOutput = sm.interactable.connectionType.logic
     + sm.interactable.connectionType.power
     + sm.interactable.connectionType.bearing
@@ -34,9 +35,13 @@ local function validMode(value)
     return type(value) == "string" and VALID_MODES[value] == true
 end
 
-local function connectedSeat(interactable)
+local function connectedLockingInteractable(interactable, character)
+    local locked = character:getLockingInteractable()
+    if locked == nil then
+        return nil
+    end
     for _, parent in ipairs(interactable:getParents()) do
-        if parent ~= nil and sm.exists(parent) and parent:hasSeat() then
+        if parent ~= nil and sm.exists(parent) and parent == locked then
             return parent
         end
     end
@@ -62,16 +67,19 @@ local function playerInConnectedSeat(interactable, player)
         return nil
     end
 
-    local seat = connectedSeat(interactable)
-    if seat == nil then
-        return nil
-    end
+    return connectedLockingInteractable(interactable, character)
+end
 
-    if character:getLockingInteractable() ~= seat then
-        return nil
+local function gameplayInputBlocked()
+    if keybind ~= nil and keybind.isGameMenuOpen ~= nil
+        and keybind.isGameMenuOpen() then
+        return true
     end
-
-    return seat
+    if sm.gui ~= nil and sm.gui.hasActiveGui ~= nil then
+        local ok, active = pcall(sm.gui.hasActiveGui)
+        return ok and active == true
+    end
+    return false
 end
 
 function KeybindLogic.server_onCreate(self)
@@ -301,6 +309,18 @@ function KeybindLogic.client_onFixedUpdate(self)
         self.cl.toggled = false
         self.cl.pulseTicks = 0
         self:cl_sendState(false)
+        return
+    end
+
+    if gameplayInputBlocked() then
+        -- Raw input keeps changing under inventory, containers and pause. Keep
+        -- the serial synchronized and require a release before resuming so no
+        -- key from the GUI is replayed into the creation.
+        self.cl.lastPressSerial = pressSerial
+        self.cl.waitingForRelease = keybind.isDown(self.cl.key)
+        if self.cl.mode == "hold" then
+            self:cl_sendState(false)
+        end
         return
     end
 

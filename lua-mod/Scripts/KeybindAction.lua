@@ -36,9 +36,20 @@ function KeybindAction:isAvailable()
 end
 
 local function inputSuppressed(action)
-    return action.bridge ~= nil
+    local bridgeMenuOpen = action.bridge ~= nil
         and action.bridge.isGameMenuOpen ~= nil
         and action.bridge.isGameMenuOpen()
+    if bridgeMenuOpen then
+        return true
+    end
+
+    if sm ~= nil and sm.gui ~= nil and sm.gui.hasActiveGui ~= nil then
+        local ok, active = pcall(sm.gui.hasActiveGui)
+        if ok and active == true then
+            return true
+        end
+    end
+    return false
 end
 
 function KeybindAction:isDown()
@@ -53,8 +64,8 @@ function KeybindAction:wasPressed()
 
     local serial = self.bridge.actionPressSerial(self.id)
     if inputSuppressed(self) then
-        -- Consume input produced while the shared bindings menu is open so it
-        -- cannot replay as a gameplay action after the menu closes.
+        -- Consume input produced while the shared bindings menu or another
+        -- game GUI is open so it cannot replay after the window closes.
         self.lastPressSerial = serial
         return false
     end

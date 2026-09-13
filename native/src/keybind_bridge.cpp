@@ -47,6 +47,8 @@ std::atomic<bool> g_gameMenuOpen{false};
 std::atomic<std::uint32_t> g_menuToggleSerial{0};
 std::atomic<int> g_featureLevel{8};
 std::atomic<std::uint64_t> g_runtimeClaimedAtMs{0};
+std::once_flag g_logFileInitialized;
+std::mutex g_logWriteMutex;
 using LuaPcall = int (__cdecl*)(lua_State*, int, int, int);
 using LuaClose = void (__cdecl*)(lua_State*);
 LuaPcall g_originalLuaPcall = nullptr;
@@ -2287,6 +2289,25 @@ void logLine(const char* message)
     }
     *(slash + 1) = L'\0';
     wcscat_s(path, L"KeybindBridge.log");
+
+    std::lock_guard lock(g_logWriteMutex);
+    std::call_once(g_logFileInitialized, [&path]() {
+        // The log describes one game process only. Truncate it on the first
+        // write after this DLL is loaded, then append normally for the rest of
+        // the process lifetime.
+        const HANDLE resetFile = CreateFileW(
+            path,
+            GENERIC_WRITE,
+            FILE_SHARE_READ | FILE_SHARE_WRITE,
+            nullptr,
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            nullptr);
+        if (resetFile != INVALID_HANDLE_VALUE)
+        {
+            CloseHandle(resetFile);
+        }
+    });
 
     const HANDLE file = CreateFileW(
         path,

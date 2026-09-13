@@ -3,11 +3,7 @@ KeybindBridge 1.0.0 - Installation
 
 1. Install a compatible Scrap Mechanic DLL injector.
 
-2. From KeybindBridge-1.0.0-Windows-x64.zip copy:
-   keybind_bridge.dll
-   KeybindBridge.diagnostics.ini
-
-   to:
+2. From KeybindBridge-1.0.0-Windows-x64.zip copy keybind_bridge.dll to:
    Steam/steamapps/common/Scrap Mechanic/Release/DLLModules
 
 3. From KeybindBridge-1.0.0-Mods.zip copy KeybindBridge-Core to:
@@ -23,10 +19,13 @@ KeybindBridge 1.0.0 - Installation
    Delete   - restore the default key
    Esc/End  - close the menu
 
-FeatureLevel=8 is the normal release setting. Do not lower it unless you are
-diagnosing a crash.
+No diagnostics file is required. Without KeybindBridge.diagnostics.ini the DLL
+uses the full FeatureLevel=8 automatically. Create the file beside the DLL only
+when diagnosing or developing the plugin.
 
 DLL log:
 Steam/steamapps/common/Scrap Mechanic/Release/DLLModules/KeybindBridge.log
+
+The log is replaced automatically every time the game starts.
 
 Every player who uses additional keys needs the DLL installed locally.

@@ -44,16 +44,23 @@ Russian documentation: [README_RU.md](README_RU.md).
 - every player who uses additional local keys must install the DLL.
 
 ## Installation for players
-1. Download and install
-  https://github.com/QuestionableM/SM-DLL-Injector/releases/tag/v1.8
 
-2. Copy `keybind_bridge.dll` and
-   `KeybindBridge.diagnostics.ini` to:
+1. From the Windows archive, copy `keybind_bridge.dll` to:
 
    `Steam/steamapps/common/Scrap Mechanic/Release/DLLModules`
 
-`FeatureLevel=8` is the normal release setting. Levels `0-7` are diagnostic
-fallbacks only.
+2. From the Mods archive, copy `KeybindBridge-Core` to your local mods folder:
+
+   `%APPDATA%/Axolot Games/Scrap Mechanic/User/User_<id>/Mods`
+
+3. Optionally copy `KeybindBridge-Flashlight` to the same folder.
+4. Enable the mods when creating or editing the world.
+5. Fully restart Scrap Mechanic after adding or removing an autonomous mod.
+
+No configuration file is required for normal play. If
+`KeybindBridge.diagnostics.ini` is absent, the DLL automatically uses the full
+`FeatureLevel=8`. Create that file beside the DLL only when diagnosing or
+developing the plugin; levels `0-7` are diagnostic fallbacks.
 
 ## Bindings menu
 
@@ -68,6 +75,30 @@ Assignments are saved immediately to
 `Release/DLLModules/KeybindBridge.bindings.ini`. Only autonomous mod actions
 appear in this menu. Per-block bindings are intentionally kept separate.
 
+## Blocks
+
+### Keybind Logic
+
+1. Connect a specific seat to the blue block.
+2. Interact with the block using `E`, then press the desired key.
+3. Press `U` to cycle `HOLD -> TOGGLE -> PULSE`.
+4. Connect the output to logic, lights, controllers, bearings or another
+   compatible consumer.
+
+The block responds only to the player occupying the connected seat. A passenger
+needs a separate Keybind Logic connected to their own seat. Keys pressed outside
+the seat are consumed and are not replayed after sitting down.
+
+### Mode Controller
+
+The orange block changes the mode of connected Keybind Logic blocks. It can be
+triggered by:
+
+- the rising edge of a regular button, gate or sensor;
+- `U` while interacting with it;
+- an assigned key from a connected seat.
+
+One Mode Controller can drive several Keybind Logic blocks.
 
 ## Smallest autonomous mod
 
@@ -138,7 +169,9 @@ and creates the separated release archives.
 
 ## Logs and diagnostics
 
-DLL log: `Release/DLLModules/KeybindBridge.log`.
+DLL log: `Release/DLLModules/KeybindBridge.log`. It is truncated automatically
+on the first log write of every game process, so it contains only the current
+launch.
 
 A normal startup contains:
 
@@ -148,10 +181,9 @@ OK: core KeybindRuntime.lua source loaded from disk
 OK: KeybindBridge 1.0.0 initialized; FeatureLevel=8
 OK: KeybindBridge client runtime started
 ```
-[Download Latest](https://github.com/oxydrive99-design/KeybindBridge/releases/latest)
 
-If the game crashes, follow [docs/DIAGNOSTICS.md](docs/DIAGNOSTICS.md) and keep a
-separate `KeybindBridge.log` and game `game-*.log` for every test.
+If the game crashes, follow [docs/DIAGNOSTICS.md](docs/DIAGNOSTICS.md) and keep
+the current `KeybindBridge.log` together with the matching game `game-*.log`.
 
 ## License
 

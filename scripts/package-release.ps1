@@ -22,7 +22,6 @@ try {
     $dllStage = Join-Path $stagingRoot "windows"
     New-Item -ItemType Directory -Force -Path $dllStage | Out-Null
     Copy-Item $resolvedDll (Join-Path $dllStage "keybind_bridge.dll")
-    Copy-Item (Join-Path $projectRoot "native/KeybindBridge.diagnostics.ini") $dllStage
     Copy-Item (Join-Path $projectRoot "INSTALL.txt") $dllStage
     Copy-Item (Join-Path $projectRoot "INSTALL_RU.txt") $dllStage
 

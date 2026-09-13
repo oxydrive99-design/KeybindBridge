@@ -1,16 +1,17 @@
 # KeybindBridge 1.0.0 diagnostics
 
-The normal release configuration is `FeatureLevel=8`. MyGUI is created only
-after the player presses `End`, autonomous extensions are executed through
-`luaL_loadbuffer`, and the runtime runs only from confirmed client callbacks.
-Levels `0-7` disable subsystems one by one to isolate a crash.
-`KeybindBridge.diagnostics.ini` must be beside `keybind_bridge.dll` in
-`Release/DLLModules`.
+The normal release configuration is `FeatureLevel=8`. If
+`KeybindBridge.diagnostics.ini` does not exist, the DLL selects level 8
+automatically. MyGUI is created only after the player presses `End`, autonomous
+extensions are executed through `luaL_loadbuffer`, and the runtime runs only
+from confirmed client callbacks. Levels `0-7` disable subsystems one by one to
+isolate a crash. Create `KeybindBridge.diagnostics.ini` beside
+`keybind_bridge.dll` in `Release/DLLModules` only for these tests.
 
 ## Test procedure
 
-Fully close the game before every run. Clear or rename `KeybindBridge.log` so
-entries from different runs do not get mixed.
+Fully close the game before every run. `KeybindBridge.log` is cleared
+automatically when the new game process writes its first entry.
 
 ### Run 1 - only if level 8 crashes
 
