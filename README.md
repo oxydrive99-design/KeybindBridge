@@ -1,5 +1,7 @@
 # KeybindBridge 1.0.0
 
+Downlload Latest Update DLL [here](https://github.com/ТВОЙ_НИК/KeybindBridge/releases/latest)
+
 KeybindBridge gives Scrap Mechanic Lua mods a shared API for additional
 keyboard and mouse bindings. A mod declares an action with a stable ID, a
 display name and a default key; the player can rebind it from the in-game menu
@@ -48,15 +50,7 @@ Russian documentation: [README_RU.md](README_RU.md).
 1. From the Windows archive, copy `keybind_bridge.dll` to:
 
    `Steam/steamapps/common/Scrap Mechanic/Release/DLLModules`
-
-2. From the Mods archive, copy `KeybindBridge-Core` to your local mods folder:
-
-   `%APPDATA%/Axolot Games/Scrap Mechanic/User/User_<id>/Mods`
-
-3. Optionally copy `KeybindBridge-Flashlight` to the same folder.
-4. Enable the mods when creating or editing the world.
-5. Fully restart Scrap Mechanic after adding or removing an autonomous mod.
-
+   
 No configuration file is required for normal play. If
 `KeybindBridge.diagnostics.ini` is absent, the DLL automatically uses the full
 `FeatureLevel=8`. Create that file beside the DLL only when diagnosing or
