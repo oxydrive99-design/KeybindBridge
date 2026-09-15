@@ -21,7 +21,7 @@ Russian documentation: [README_RU.md](README_RU.md).
 
 ## Features in 1.0.0
 
-- `A-Z`, number keys, navigation keys, `F1-F24` and five mouse buttons;
+- `A-Z`, number keys, navigation keys, `F1-F12` and five mouse buttons;
 - one `End` menu for autonomous actions from all participating mods;
 - assignments persist across worlds and game restarts;
 - multiple actions may share one key and multiple listeners may observe an
